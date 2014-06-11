@@ -1,5 +1,8 @@
-#![crate_id = ""]
+#![crate_id = "xpath"]
 #![deny(missing_doc)]
+//! The XPath module from libxml2
 
-//! Documentation goes here.
+extern crate libc;
 
+mod ffi;
+pub mod document;

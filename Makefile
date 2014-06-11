@@ -290,7 +290,7 @@ $(DYLIB): $(SOURCE_FILES) | $(LIB_ENTRY_FILE) $(TARGET_LIB_DIR)
 	$(Q)$(COMPILER) --target "$(TARGET)" $(COMPILER_FLAGS) --crate-type=dylib $(LIB_ENTRY_FILE) -L "target/$(TARGET)/lib" --out-dir "target/$(TARGET)/lib/" \
 	&& echo "--- Built dylib"
 
-bin:
+bin/:
 	$(Q)mkdir -p bin
 
 $(TARGET_LIB_DIR):
