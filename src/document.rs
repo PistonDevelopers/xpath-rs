@@ -6,6 +6,10 @@ pub struct Document {
     xmlDocument: *ffi::Document
 }
 
+struct Context {
+    xmlXPathContext: *ffi::Context
+}
+
 impl Document {
 
     /// Creates a new Document from a string representation
@@ -23,12 +27,32 @@ impl Document {
             raw_doc_to_option(doc)
         }
     }
+
+    /// Creates a new Context
+    fn new_context(&self) -> Option<Context> {
+        unsafe {
+            let context = ffi::xmlXPathNewContext(self.xmlDocument);
+            if context.is_null() {
+                None
+            } else {
+                Some(Context { xmlXPathContext: context })
+            }
+        }
+    }
 }
 
 impl Drop for Document {
     fn drop(&mut self) {
         unsafe {
             ffi::xmlFreeDoc(self.xmlDocument);
+        }
+    }
+}
+
+impl Drop for Context {
+    fn drop(&mut self) {
+        unsafe {
+            ffi::xmlXPathFreeContext(self.xmlXPathContext);
         }
     }
 }
