@@ -3,11 +3,11 @@ use ffi = super::ffi;
 
 /// The XML document
 pub struct Document {
-    xmlDocument: *ffi::Document
+    xmlDocument: *const ffi::Document
 }
 
 struct Context {
-    xmlXPathContext: *ffi::Context
+    xmlXPathContext: *const ffi::Context
 }
 
 impl Document {
@@ -57,7 +57,7 @@ impl Drop for Context {
     }
 }
 
-unsafe fn raw_doc_to_option(doc: *ffi::Document) -> Option<Document> {
+unsafe fn raw_doc_to_option(doc: *const ffi::Document) -> Option<Document> {
     if doc.is_null() {
         None
     } else {

@@ -4,35 +4,35 @@ pub struct Document;
 pub struct Context;
 pub struct XPathObject {
     xpath_type: c_ushort,
-    node_set: *NodeSet,
+    node_set: *const NodeSet,
     bool_val: c_int,
     float_val: c_double,
-    string_val: *c_char,
-    user: *c_void,
+    string_val: *const c_char,
+    user: *const c_void,
     index: c_int,
-    user2: *c_void,
+    user2: *const c_void,
     index2: c_int
 }
 pub struct NodeSet {
     node_nr: c_int,
     node_max: c_int,
-    node_tab: *Node
+    node_tab: *const Node
 }
 pub struct Node {
-    private: *c_void,
+    private: *const c_void,
     element_type: c_ushort,
-    name: *c_char,
-    children: *Node,
-    last: *Node,
-    parent: *Node,
-    next: *Node,
-    prev: *Node,
-    doc: *Document,
-    namespace: *Namespace,
-    content: *c_char,
-    properties: *Attribute,
-    namespace_def: *Namespace,
-    psvi: *c_void,
+    name: *const c_char,
+    children: *const Node,
+    last: *const Node,
+    parent: *const Node,
+    next: *const Node,
+    prev: *const Node,
+    doc: *const Document,
+    namespace: *const Namespace,
+    content: *const c_char,
+    properties: *const Attribute,
+    namespace_def: *const Namespace,
+    psvi: *const c_void,
     line: c_ushort,
     extra: c_ushort
 }
@@ -41,13 +41,14 @@ pub struct Attribute;
 
 #[link(name = "xml2")]
 extern {
-    pub fn xmlParseDoc(body: *c_char) -> *Document;
-    pub fn xmlParseFile(filename: *c_char) -> *Document;
-    pub fn xmlFreeDoc(doc: *Document);
+    pub fn xmlParseDoc(body: *const c_char) -> *const Document;
+    pub fn xmlParseFile(filename: *const c_char) -> *const Document;
+    pub fn xmlFreeDoc(doc: *const Document);
 
-    pub fn xmlXPathNewContext(doc: *Document) -> *Context;
-    pub fn xmlXPathFreeContext(context: *Context);
+    pub fn xmlXPathNewContext(doc: *const Document) -> *const Context;
+    pub fn xmlXPathFreeContext(context: *const Context);
 
-    pub fn xmlXPathEvalExpression(xpath: *c_char, context: *Context) -> *XPathObject;
-    pub fn xmlXPathFreeObject(object: *XPathObject);
+    pub fn xmlXPathEvalExpression(xpath: *const c_char, context: *const Context)
+                                  -> *const XPathObject;
+    pub fn xmlXPathFreeObject(object: *const XPathObject);
 }
