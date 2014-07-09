@@ -1,5 +1,6 @@
 //! Handling documents
 use ffi = super::ffi;
+use xpathobject::XPathObject;
 
 /// The XML document
 pub struct Document {
@@ -28,7 +29,7 @@ impl Document {
         }
     }
 
-    /// Creates a new Context
+    /// Creates a new Context to be used for reaching nodes
     fn new_context(&self) -> Option<Context> {
         unsafe {
             let context = ffi::xmlXPathNewContext(self.xmlDocument);
@@ -37,6 +38,15 @@ impl Document {
             } else {
                 Some(Context { xmlXPathContext: context })
             }
+        }
+    }
+
+    /// Gets a nodeset from a Document
+    pub fn get_node_set(&self, xpath: &str) -> Option<XPathObject> {
+        match self.new_context() {
+            Some(context) => XPathObject::from_raw_context(context.xmlXPathContext,
+                                                           xpath),
+            None => None
         }
     }
 }
@@ -86,5 +96,11 @@ mod test {
     #[test]
     fn return_some_for_existent_file() {
         assert!(Document::from_file("test_assets/foo.xml").is_some());
+    }
+
+    #[test]
+    fn return_valid_xpath_object_for_extent_path() {
+        assert!(Document::from_file("test_assets/foo.xml").unwrap()
+                .get_node_set("/foo").is_some());
     }
 }

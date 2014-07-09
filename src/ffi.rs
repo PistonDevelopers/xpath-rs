@@ -1,4 +1,5 @@
 use libc::{c_char, c_int, c_double, c_void, c_ushort};
+use std::ptr;
 
 pub struct Document;
 pub struct Context;
@@ -51,4 +52,30 @@ extern {
     pub fn xmlXPathEvalExpression(xpath: *const c_char, context: *const Context)
                                   -> *const XPathObject;
     pub fn xmlXPathFreeObject(object: *const XPathObject);
+}
+
+#[inline]
+fn xml_xpath_node_set_is_empty(ns: *const NodeSet) -> bool {
+    unsafe {
+        ns.is_null() || (*ns).node_nr==0 || (*ns).node_tab.is_null()
+    }
+}
+
+impl XPathObject {
+    pub fn from_context(context: *const Context,
+                        xpath: &str) -> *const XPathObject
+    {
+        unsafe {
+            let result = xmlXPathEvalExpression(xpath.to_c_str().as_ptr(),
+                                                context);
+            if result.is_null() {
+                ptr::null()
+            } else if xml_xpath_node_set_is_empty((*result).node_set) {
+                xmlXPathFreeObject(result);
+                ptr::null()
+            } else {
+                result
+            }
+        }
+    }
 }
