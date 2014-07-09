@@ -85,6 +85,6 @@ mod test {
 
     #[test]
     fn return_some_for_existent_file() {
-        assert!(Document::from_file("foo.xml").is_some());
+        assert!(Document::from_file("test_assets/foo.xml").is_some());
     }
 }
