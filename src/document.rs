@@ -24,7 +24,7 @@ impl Document {
     }
 
     /// Creates a new Context
-    pub fn new_context(&self) -> Option<Context> {
+    pub fn new_context<'a>(&'a self) -> Option<Context<'a>> {
         super::context::from_raw_document(self.xmlDocument)
     }
 }
