@@ -1,5 +1,4 @@
 #![deny(missing_doc)]
-#![feature(unsafe_destructor)]
 
 //! The XPath module from libxml2
 

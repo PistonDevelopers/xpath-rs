@@ -4,8 +4,12 @@ use std::kinds::marker::ContravariantLifetime;
 
 /// The object that will be used for node manipulations
 pub struct XPathObject<'a> {
-    xpathObject: *const ffi::XPathObject,
+    wrapper: XPathObjectWrapper,
     lt: ContravariantLifetime<'a>
+}
+
+struct XPathObjectWrapper {
+    xpath_object: *const ffi::XPathObject,
 }
 
 pub fn from_raw_context<'a>(context: *const ffi::Context,
@@ -16,17 +20,18 @@ pub fn from_raw_context<'a>(context: *const ffi::Context,
         None
     } else {
         Some(XPathObject {
-            xpathObject: result,
+            wrapper: XPathObjectWrapper {
+                xpath_object: result
+            },
             lt: ContravariantLifetime
         })
     }
 }
 
-#[unsafe_destructor]
-impl<'a> Drop for XPathObject<'a> {
+impl<'a> Drop for XPathObjectWrapper {
     fn drop(&mut self) {
         unsafe {
-            ffi::xmlXPathFreeObject(self.xpathObject);
+            ffi::xmlXPathFreeObject(self.xpath_object);
         }
     }
 }

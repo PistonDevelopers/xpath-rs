@@ -5,8 +5,12 @@ use std::kinds::marker::ContravariantLifetime;
 
 /// A context to get XPathObjects
 pub struct Context<'a> {
-    xmlXPathContext: *const ffi::Context,
+    wrapper: ContextWrapper,
     lt: ContravariantLifetime<'a>
+}
+
+struct ContextWrapper {
+    xml_xpath_context: *const ffi::Context
 }
 
 pub fn from_raw_document<'a>(document: *const ffi::Document)
@@ -17,7 +21,9 @@ pub fn from_raw_document<'a>(document: *const ffi::Document)
             None
         } else {
             Some(Context {
-                xmlXPathContext: context,
+                wrapper: ContextWrapper {
+                    xml_xpath_context: context,
+                },
                 lt: ContravariantLifetime
             })
         }
@@ -27,15 +33,15 @@ pub fn from_raw_document<'a>(document: *const ffi::Document)
 impl<'a> Context<'a> {
     /// Instances a new XPathObject to access its nodesets
     pub fn new_xpath_object(&'a self, xpath: &str) -> Option<XPathObject<'a>> {
-        super::xpath_object::from_raw_context(self.xmlXPathContext, xpath)
+        super::xpath_object::from_raw_context(self.wrapper.xml_xpath_context,
+                                              xpath)
     }
 }
 
-#[unsafe_destructor]
-impl<'a> Drop for Context<'a> {
+impl Drop for ContextWrapper {
     fn drop(&mut self) {
         unsafe {
-            ffi::xmlXPathFreeContext(self.xmlXPathContext);
+            ffi::xmlXPathFreeContext(self.xml_xpath_context);
         }
     }
 }
