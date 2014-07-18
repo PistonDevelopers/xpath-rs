@@ -7,7 +7,7 @@ pub struct Context;
 #[allow(dead_code)]
 pub struct XPathObject {
     xpath_type: c_ushort,
-    node_set: *const NodeSet,
+    pub node_set: *const NodeSet,
     bool_val: c_int,
     float_val: c_double,
     string_val: *const c_char,

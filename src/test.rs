@@ -23,9 +23,11 @@ fn return_some_for_existent_file() {
 
 #[test]
 fn return_valid_xpath_object_for_extent_path() {
-    assert!(Document::from_file("test_assets/foo.xml").unwrap()
-            .new_context().unwrap()
-            .new_xpath_object("/foo").is_some());
+    let document = Document::from_file("test_assets/foo.xml").unwrap();
+    let context = document.new_context().unwrap();
+    let xpath_object = context.new_xpath_object("/foo");
+    assert!(xpath_object.is_some());
+    assert!(xpath_object.unwrap().get_node_set().is_some());
 }
 
 #[test]

@@ -13,6 +13,25 @@ struct XPathObjectWrapper {
     xpath_object: *const ffi::XPathObject,
 }
 
+/// The nodeset
+pub struct NodeSet<'a> {
+    node_set: &'a ffi::NodeSet,
+}
+
+impl<'a> XPathObject<'a> {
+    /// Gets a nodeset from the xpathobject
+    pub fn get_node_set(&'a self) -> Option<NodeSet<'a>> {
+        unsafe {
+            let node_set_ptr = (*self.wrapper.xpath_object).node_set;
+            if node_set_ptr.is_null() {
+                None
+            } else {
+                Some(NodeSet { node_set: &*node_set_ptr })
+            }
+        }
+    }
+}
+
 pub fn from_raw_context<'a>(context: *const ffi::Context,
                         xpath: &str) -> Option<XPathObject<'a>> {
     let result =
