@@ -4,6 +4,7 @@ use std::ptr;
 
 pub struct Document;
 pub struct Context;
+#[allow(dead_code)]
 pub struct XPathObject {
     xpath_type: c_ushort,
     node_set: *const NodeSet,
@@ -15,11 +16,13 @@ pub struct XPathObject {
     user2: *const c_void,
     index2: c_int
 }
+#[allow(dead_code)]
 pub struct NodeSet {
     node_nr: c_int,
     node_max: c_int,
     node_tab: *const Node
 }
+#[allow(dead_code)]
 pub struct Node {
     private: *const c_void,
     element_type: c_ushort,
