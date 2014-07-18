@@ -1,3 +1,4 @@
+// -*- flycheck-rust-crate-root: "lib.rs" -*-
 use ffi = super::ffi;
 use super::xpath_object::XPathObject;
 

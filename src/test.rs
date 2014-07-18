@@ -1,3 +1,4 @@
+// -*- flycheck-rust-crate-root: "lib.rs" -*-
 use super::Document;
 
 #[test]
