@@ -29,7 +29,14 @@ fn return_valid_xpath_object_for_extent_path() {
     assert!(xpath_object.is_some());
     let xpath_object = xpath_object.unwrap();
     assert!(xpath_object.get_node_set().is_some());
-    assert!(xpath_object.get_node_set().unwrap().get_nodes().len()==1);
+ }
+
+#[test]
+fn return_right_amount_of_nodes() {
+    let document = Document::from_file("test_assets/foo.xml").unwrap();
+    let context = document.new_context().unwrap();
+    let xpath_object = context.new_xpath_object("/foo/bar").unwrap();
+    assert!(xpath_object.get_node_set().unwrap().get_nodes().len()==2);
 }
 
 #[test]
