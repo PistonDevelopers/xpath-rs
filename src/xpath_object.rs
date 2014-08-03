@@ -18,6 +18,7 @@ pub struct NodeSet<'a> {
     node_set: &'a ffi::NodeSet,
 }
 
+/// A node from the document
 pub struct Node<'a> {
     node: &'a ffi::Node,
 }
@@ -37,6 +38,7 @@ impl<'a> XPathObject<'a> {
 }
 
 impl<'a> NodeSet<'a> {
+    /// Gets a vector of nodes from the NodeSet
     pub fn get_nodes(&'a self) -> Vec<Node<'a>> {
         unsafe {
             let node_ptr = self.node_set.node_tab;
