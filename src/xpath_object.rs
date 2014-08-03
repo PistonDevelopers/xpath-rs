@@ -18,6 +18,10 @@ pub struct NodeSet<'a> {
     node_set: &'a ffi::NodeSet,
 }
 
+pub struct Node<'a> {
+    node: &'a ffi::Node,
+}
+
 impl<'a> XPathObject<'a> {
     /// Gets a nodeset from the xpathobject
     pub fn get_node_set(&'a self) -> Option<NodeSet<'a>> {
@@ -27,6 +31,22 @@ impl<'a> XPathObject<'a> {
                 None
             } else {
                 Some(NodeSet { node_set: &*node_set_ptr })
+            }
+        }
+    }
+}
+
+impl<'a> NodeSet<'a> {
+    pub fn get_nodes(&'a self) -> Vec<Node<'a>> {
+        unsafe {
+            let node_ptr = self.node_set.node_tab;
+            if node_ptr.is_null() {
+                vec![]
+            } else {
+                range(0, self.node_set.node_nr).map(
+                    |off| Node {
+                        node: &*self.node_set.node_tab.clone().offset(off as int)
+                    }).collect()
             }
         }
     }

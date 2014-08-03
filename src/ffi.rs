@@ -18,9 +18,9 @@ pub struct XPathObject {
 }
 #[allow(dead_code)]
 pub struct NodeSet {
-    node_nr: c_int,
+    pub node_nr: c_int,
     node_max: c_int,
-    node_tab: *const Node
+    pub node_tab: *mut Node
 }
 #[allow(dead_code)]
 pub struct Node {

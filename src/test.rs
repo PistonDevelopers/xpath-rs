@@ -27,7 +27,9 @@ fn return_valid_xpath_object_for_extent_path() {
     let context = document.new_context().unwrap();
     let xpath_object = context.new_xpath_object("/foo");
     assert!(xpath_object.is_some());
-    assert!(xpath_object.unwrap().get_node_set().is_some());
+    let xpath_object = xpath_object.unwrap();
+    assert!(xpath_object.get_node_set().is_some());
+    assert!(xpath_object.get_node_set().unwrap().get_nodes().len()==1);
 }
 
 #[test]
