@@ -16,12 +16,15 @@ pub struct XPathObject {
     user2: *const c_void,
     index2: c_int
 }
+/// The nodeset
 #[allow(dead_code)]
 pub struct NodeSet {
-    pub node_nr: c_int,
+    node_nr: c_int,
     node_max: c_int,
-    pub node_tab: *mut Node
+    node_tab: *mut Node
 }
+
+/// A node from the nodeset
 #[allow(dead_code)]
 pub struct Node {
     private: *const c_void,
@@ -79,6 +82,22 @@ impl XPathObject {
                 ptr::null()
             } else {
                 result
+            }
+        }
+    }
+}
+
+
+impl<'a> NodeSet {
+    /// Gets a vector of nodes from the NodeSet
+    pub fn get_nodes(&'a self) -> Vec<&'a Node> {
+        unsafe {
+            let node_ptr = self.node_tab;
+            if node_ptr.is_null() {
+                vec![]
+            } else {
+                range(0, self.node_nr).map(
+                    |off| &*self.node_tab.clone().offset(off as int)).collect()
             }
         }
     }
