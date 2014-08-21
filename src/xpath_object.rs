@@ -2,7 +2,7 @@
 pub use super::ffi::NodeSet;
 pub use super::ffi::Node;
 
-use ffi = super::ffi;
+use super::ffi as ffi;
 
 use std::kinds::marker::ContravariantLifetime;
 
