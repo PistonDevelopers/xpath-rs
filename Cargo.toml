@@ -4,7 +4,7 @@ name = "xpath"
 version = "0.1.0"
 authors = [ "yuridenommus@gmail.com" ]
 
-[[lib]]
+[lib]
 
 name = "xpath"
 path = "src/lib.rs"

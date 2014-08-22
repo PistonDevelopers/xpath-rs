@@ -1,5 +1,5 @@
 // -*- flycheck-rust-crate-root: "lib.rs" -*-
-use ffi = super::ffi;
+use super::ffi as ffi;
 use super::context::Context;
 
 /// The XML document

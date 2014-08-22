@@ -1,5 +1,5 @@
 // -*- flycheck-rust-crate-root: "lib.rs" -*-
-use ffi = super::ffi;
+use super::ffi as ffi;
 use super::xpath_object::XPathObject;
 
 use std::kinds::marker::ContravariantLifetime;
