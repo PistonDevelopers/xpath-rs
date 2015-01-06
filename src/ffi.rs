@@ -95,6 +95,9 @@ impl XPathObject {
     }
 }
 
+impl Copy for Node {}
+
+impl Copy for NodeSet {}
 
 impl<'a> NodeSet {
     /// Gets a vector of nodes from the NodeSet
