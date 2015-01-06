@@ -3,9 +3,12 @@ use libc::{c_char, c_int, c_double, c_void, c_ushort};
 use std::ptr;
 use std::c_str::ToCStr;
 
+#[repr(C)]
 pub struct Document;
+#[repr(C)]
 pub struct Context;
 #[allow(dead_code)]
+#[repr(C)]
 pub struct XPathObject {
     xpath_type: c_ushort,
     pub node_set: *const NodeSet,
@@ -19,6 +22,7 @@ pub struct XPathObject {
 }
 /// The nodeset
 #[allow(dead_code)]
+#[repr(C)]
 pub struct NodeSet {
     node_nr: c_int,
     node_max: c_int,
@@ -27,6 +31,7 @@ pub struct NodeSet {
 
 /// A node from the nodeset
 #[allow(dead_code)]
+#[repr(C)]
 pub struct Node {
     private: *const c_void,
     element_type: c_ushort,
@@ -45,7 +50,9 @@ pub struct Node {
     line: c_ushort,
     extra: c_ushort
 }
+#[repr(C)]
 pub struct Namespace;
+#[repr(C)]
 pub struct Attribute;
 
 #[link(name = "xml2")]
