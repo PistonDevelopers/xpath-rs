@@ -1,4 +1,4 @@
-#![deny(missing_doc)]
+#![deny(missing_docs)]
 
 //! The XPath module from libxml2
 
