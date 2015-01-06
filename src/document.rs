@@ -5,7 +5,7 @@ use std::c_str::ToCStr;
 
 /// The XML document
 pub struct Document {
-    xmlDocument: *const ffi::Document
+    xml_document: *const ffi::Document
 }
 
 impl Document {
@@ -27,14 +27,14 @@ impl Document {
 
     /// Creates a new Context
     pub fn new_context<'a>(&'a self) -> Option<Context<'a>> {
-        super::context::from_raw_document(self.xmlDocument)
+        super::context::from_raw_document(self.xml_document)
     }
 }
 
 impl Drop for Document {
     fn drop(&mut self) {
         unsafe {
-            ffi::xmlFreeDoc(self.xmlDocument);
+            ffi::xmlFreeDoc(self.xml_document);
         }
     }
 }
@@ -43,6 +43,6 @@ unsafe fn raw_doc_to_option(doc: *const ffi::Document) -> Option<Document> {
     if doc.is_null() {
         None
     } else {
-        Some(Document { xmlDocument: doc })
+        Some(Document { xml_document: doc })
     }
 }
