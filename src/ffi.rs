@@ -1,6 +1,7 @@
 // -*- flycheck-rust-crate-root: "lib.rs" -*-
 use libc::{c_char, c_int, c_double, c_void, c_ushort};
 use std::ptr;
+use std::c_str::ToCStr;
 
 pub struct Document;
 pub struct Context;

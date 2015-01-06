@@ -1,6 +1,7 @@
 // -*- flycheck-rust-crate-root: "lib.rs" -*-
 use super::ffi as ffi;
 use super::context::Context;
+use std::c_str::ToCStr;
 
 /// The XML document
 pub struct Document {
