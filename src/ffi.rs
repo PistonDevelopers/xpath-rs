@@ -1,7 +1,7 @@
 // -*- flycheck-rust-crate-root: "lib.rs" -*-
 use libc::{c_char, c_int, c_double, c_void, c_ushort};
 use std::ptr;
-use std::c_str::ToCStr;
+use std::ffi::CString;
 
 #[repr(C)]
 pub struct Document;
@@ -81,7 +81,7 @@ impl XPathObject {
                         xpath: &str) -> *const XPathObject
     {
         unsafe {
-            let result = xmlXPathEvalExpression(xpath.to_c_str().as_ptr(),
+            let result = xmlXPathEvalExpression(CString::from_slice(xpath.as_bytes()).as_ptr(),
                                                 context);
             if result.is_null() {
                 ptr::null()
@@ -108,7 +108,7 @@ impl<'a> NodeSet {
                 vec![]
             } else {
                 range(0, self.node_nr).map(
-                    |off| &*self.node_tab.clone().offset(off as int)).collect()
+                    |off| &*self.node_tab.clone().offset(off as isize)).collect()
             }
         }
     }
