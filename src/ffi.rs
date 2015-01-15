@@ -108,7 +108,7 @@ impl<'a> NodeSet {
                 vec![]
             } else {
                 range(0, self.node_nr).map(
-                    |off| &*self.node_tab.clone().offset(off as int)).collect()
+                    |off| &*self.node_tab.clone().offset(off as isize)).collect()
             }
         }
     }
