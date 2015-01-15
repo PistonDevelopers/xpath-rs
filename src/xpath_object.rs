@@ -4,7 +4,7 @@ pub use super::ffi::Node;
 
 use super::ffi as ffi;
 
-use std::kinds::marker::ContravariantLifetime;
+use std::marker::ContravariantLifetime;
 
 /// The object that will be used for node manipulations
 pub struct XPathObject<'a> {

@@ -2,7 +2,7 @@
 use super::ffi as ffi;
 use super::xpath_object::XPathObject;
 
-use std::kinds::marker::ContravariantLifetime;
+use std::marker::ContravariantLifetime;
 
 /// A context to get XPathObjects
 pub struct Context<'a> {
