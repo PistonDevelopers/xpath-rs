@@ -1,4 +1,4 @@
-# xpath-rs [![Build Status](https://travis-ci.org/PistonDevelopers/xpath-rs.svg?branch=master)](https://travis-ci.org/PistonDevelopers/xpath-rs)
+# xpath-rs
 
 *Deprecated in favor of https://github.com/shepmaster/sxd-xpath*
 
