@@ -1,6 +1,6 @@
 # xpath-rs
 
-*Deprecated in favor of https://github.com/shepmaster/sxd-xpath*
+*DEPRECATED in favor of https://github.com/shepmaster/sxd-xpath*
 
 Bindings for libxml2's xpath module.
 
